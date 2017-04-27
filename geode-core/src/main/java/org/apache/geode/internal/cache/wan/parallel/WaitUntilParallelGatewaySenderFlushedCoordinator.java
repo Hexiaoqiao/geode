@@ -29,7 +29,7 @@ import java.util.concurrent.*;
 
 public class WaitUntilParallelGatewaySenderFlushedCoordinator
     extends WaitUntilGatewaySenderFlushedCoordinator {
-  final static private int CALLABLES_CHUNK_SIZE = 10;
+  final static private int CALLABLES_CHUNK_SIZE = 113;
 
   public WaitUntilParallelGatewaySenderFlushedCoordinator(AbstractGatewaySender sender,
       long timeout, TimeUnit unit, boolean initiator) {

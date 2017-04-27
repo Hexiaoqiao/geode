@@ -313,7 +313,10 @@ public class LuceneIndexForPartitionedRegion extends LuceneIndexImpl {
 
     private void redistributeEvents(final AsyncEvent event) {
       try {
-        logger.info("JASON unsticking event:" + event.getKey() + ":" + event);
+        logger.info("JASON unsticking event:" + event);
+        if (event == null) {
+          return;
+        }
         FunctionService.onRegion(event.getRegion())
             .withArgs(new Object[] {event.getRegion().getName(), event.getKey(), event})
             .execute(PokeLuceneAsyncQueueFunction.ID);
