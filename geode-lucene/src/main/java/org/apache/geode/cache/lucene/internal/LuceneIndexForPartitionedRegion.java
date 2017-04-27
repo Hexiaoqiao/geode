@@ -313,7 +313,7 @@ public class LuceneIndexForPartitionedRegion extends LuceneIndexImpl {
 
     private void redistributeEvents(final AsyncEvent event) {
       try {
-        logger.info("JASON unsticking event:" + event);
+        logger.info("GGG unsticking event:" + event);
         if (event == null) {
           return;
         }
