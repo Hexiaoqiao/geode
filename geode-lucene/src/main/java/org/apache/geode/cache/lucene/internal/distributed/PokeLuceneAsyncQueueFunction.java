@@ -52,6 +52,7 @@ public class PokeLuceneAsyncQueueFunction implements Function, InternalEntity {
     PartitionedRegion pr = (PartitionedRegion) ctx.getDataSet();
     Cache cache = pr.getCache();
     String queueId = (String) pr.getAttributes().getAsyncEventQueueIds().iterator().next();
+    // PR could have many AEQs, not just AEQ for lucene
     AsyncEventQueueImpl queue = (AsyncEventQueueImpl) cache.getAsyncEventQueue(queueId);
 
     // Get the GatewaySender
@@ -60,6 +61,8 @@ public class PokeLuceneAsyncQueueFunction implements Function, InternalEntity {
     // Update the shadow key
     BucketRegion br = pr.getBucketRegion(key);
     if (br.getBucketAdvisor().isPrimary()) {
+      // only do it for primary? how about failover again to secondary?
+      // why not br.notifyGatewaySender(operation, event);
       try {
         List<ParallelGatewaySenderEventProcessor> processors =
             ((ConcurrentParallelGatewaySenderEventProcessor) sender.getEventProcessor())

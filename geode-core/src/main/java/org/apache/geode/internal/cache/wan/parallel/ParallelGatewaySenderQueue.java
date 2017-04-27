@@ -1133,6 +1133,7 @@ public class ParallelGatewaySenderQueue implements RegionQueue {
             bucketId, prQ.getFullPath());
       }
     }
+    brq.getEventSeqNumQueue().add(key);
     addRemovedEvent(prQ, bucketId, key);
   }
 

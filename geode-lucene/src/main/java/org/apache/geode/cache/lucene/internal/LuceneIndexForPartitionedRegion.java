@@ -290,16 +290,17 @@ public class LuceneIndexForPartitionedRegion extends LuceneIndexImpl {
         try {
           for (BucketRegion br : pr.getDataStore().getAllLocalBucketRegions()) {
             if (!br.getBucketAdvisor().isPrimary()) {
-              AsyncEvent currentFirst = (AsyncEvent) ((BucketRegionQueue) br).firstEventSeqNum();
-              AsyncEvent lastPeek = (AsyncEvent) lastPeekedEvents.put(br, currentFirst);
+              Long currentFirst = (Long) ((BucketRegionQueue) br).firstEventSeqNum();
+              Long lastPeek = (Long) lastPeekedEvents.put(br, currentFirst);
               if (currentFirst != null && currentFirst.equals(lastPeek)) {
-                redistributeEvents(lastPeek);
+                redistributeEvents((AsyncEvent) ((BucketRegionQueue) br).optimalGet(currentFirst));
+                lastPeekedEvents.put(br, ((BucketRegionQueue) br).firstEventSeqNum());
               }
             } else {
               lastPeekedEvents.put(br, null);
             }
           }
-          Thread.sleep(10000);
+          Thread.sleep(2000);
         } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
         }

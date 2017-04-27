@@ -384,7 +384,7 @@ public class BucketRegionQueue extends AbstractBucketRegionQueue {
   /**
    * Does a get that gets the value without fault values in from disk.
    */
-  private Object optimalGet(Object k) {
+  public Object optimalGet(Object k) {
     // Get the object at that key (to remove the index).
     Object object = null;
     try {
@@ -586,6 +586,10 @@ public class BucketRegionQueue extends AbstractBucketRegionQueue {
 
   public Object firstEventSeqNum() {
     return this.eventSeqNumQueue.peek();
+  }
+
+  public BlockingQueue getEventSeqNumQueue() {
+    return eventSeqNumQueue;
   }
 
   public boolean isReadyForPeek() {

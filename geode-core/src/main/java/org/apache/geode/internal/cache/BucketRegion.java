@@ -668,7 +668,7 @@ public class BucketRegion extends DistributedRegion implements Bucket {
     }
   }
 
-  protected void notifyGatewaySender(EnumListenerEvent operation, EntryEventImpl event) {
+  public void notifyGatewaySender(EnumListenerEvent operation, EntryEventImpl event) {
     // We don't need to clone the event for new Gateway Senders.
     // Preserve the bucket reference for resetting it later.
     LocalRegion bucketRegion = event.getRegion();

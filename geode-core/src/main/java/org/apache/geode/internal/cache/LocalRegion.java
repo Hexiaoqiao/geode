@@ -6338,7 +6338,7 @@ public class LocalRegion extends AbstractRegion implements LoaderHelperFactory,
     return false;
   }
 
-  protected void notifyGatewaySender(EnumListenerEvent operation, EntryEventImpl event) {
+  public void notifyGatewaySender(EnumListenerEvent operation, EntryEventImpl event) {
 
     if (isPdxTypesRegion()
         || event.isConcurrencyConflict() /* usually concurrent cache modification problem */) {
